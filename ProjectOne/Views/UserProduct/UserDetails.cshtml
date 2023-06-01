@@ -1,0 +1,25 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Детали</h1>
+<div class="card mb-3" style="max-width: 100%;">
+    <div class="row g-0">
+        <div class="col-md-4 mycenter">
+            <img src="@Model.Imagepath" class="img-fluid" alt="@Model.Name" style="padding: 20px">
+
+        </div>
+        <div class="col-md-8">
+            <div class="card-body" style="padding: 40px">
+                <h1 class="card-title text-primary" style="padding-block-end: 20px">@Model.Name</h1>
+                <p class="card-text">@Model.Description</p>
+                <span class="fw-bold display-4" style="text-align: left">$@Model.Price</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-controller="UserProduct" asp-action="Index">Товары</a>
+</div>
