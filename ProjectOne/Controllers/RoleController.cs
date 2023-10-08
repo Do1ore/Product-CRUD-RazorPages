@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MyPet.ViewModels;
 using ProjectStore.Areas.Identity.Data;
+using ProjectStore.ViewModels;
 
-namespace MyPet.Controllers
+namespace ProjectStore.Controllers
 {
     public class RoleController : Controller
     {

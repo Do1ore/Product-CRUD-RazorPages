@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace MyPet.ViewModels
+namespace ProjectStore.ViewModels
 {
     public class ChangeRoleViewModel
     {
