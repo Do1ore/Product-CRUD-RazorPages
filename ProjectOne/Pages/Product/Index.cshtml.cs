@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ProjectStore.Models;
 
-namespace ProjectStore.Pages
+namespace ProjectStore.Pages.Product
 {
     [Authorize(Roles = "admin")]
 
@@ -22,7 +15,7 @@ namespace ProjectStore.Pages
             _context = context;
         }
 
-        public IList<Product> Product { get;set; } = default!;
+        public IList<Models.Product> Product { get;set; } = default!;
 
         public async Task OnGetAsync()
         {

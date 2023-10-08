@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectStore.Areas.Identity.Data;
-using ProjectStore.Data;
 using ProjectStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,8 +19,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    // Настройте опции cookie
-    options.CheckConsentNeeded = context => true;
+    options.CheckConsentNeeded = _ => true;
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
@@ -31,7 +29,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

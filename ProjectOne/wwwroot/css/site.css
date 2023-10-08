@@ -20,3 +20,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.navbar.bg-primary .navbar-brand,
+.navbar.bg-primary .nav-link {
+    color: white !important;
+}
+
+.nav-link:hover {
+  color: #ff9800;
+  transition: color 0.3s;
+}

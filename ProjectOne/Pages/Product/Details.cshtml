@@ -1,16 +1,16 @@
 ﻿@page
-@model ProjectStore.Pages.DetailsModel
+@model ProjectStore.Pages.Product.DetailsModel
 
 @{
     ViewData["Title"] = "Детали";
 }
 
-<h1>Делати для администратора</h1>
+<h1 class="mb-4 text-center">Детали для администратора</h1>
 
 <div>
     <h4>Товар</h4>
     <hr />
-    <dl class="row">
+    <dl class="row mb-4">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Name)
         </dt>
@@ -39,12 +39,13 @@
             @Html.DisplayNameFor(model => model.Product.Imagepath)
         </dt>
         <dd class="col-sm-10">
-            <img src="@Model.Product.Imagepath" class="card-img shadow-lg" style="height: 400px; width: 400px; object-fit: cover"/>
+           
             @Html.DisplayFor(model => model.Product.Imagepath)
         </dd>
+         <img src="@Model.Product.Imagepath" class="card-img shadow-lg rounded-3" style="height: 400px; width: 400px; object-fit: cover"/>
     </dl>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Product?.Id">Изменить</a> |
-    <a asp-page="./Index">К списку товаров</a>
+<div class="mt-3">
+    <a asp-page="./Edit" asp-route-id="@Model.Product?.Id" class="btn btn-info">Изменить</a>
+    <a asp-page="./Index" class="btn btn-secondary">К списку товаров</a>
 </div>

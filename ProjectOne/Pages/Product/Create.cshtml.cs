@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ProjectStore.Models;
 
-namespace ProjectStore.Pages
+namespace ProjectStore.Pages.Product
 {
     [Authorize(Roles = "admin")]
     public class CreateModel : PageModel
@@ -28,7 +27,7 @@ namespace ProjectStore.Pages
 
         public class InputModel
         {
-            public Product Product { get; set; } = default!;
+            public Models.Product Product { get; set; } = default!;
             [Required]
             [Display(Name ="Изображение")]
             public IFormFile? formFile { get; set; }

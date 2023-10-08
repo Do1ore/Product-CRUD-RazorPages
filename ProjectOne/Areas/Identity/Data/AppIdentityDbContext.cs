@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProjectStore.Areas.Identity.Data;
 
-namespace ProjectStore.Data;
+namespace ProjectStore.Areas.Identity.Data;
 
 public class AppIdentityDbContext : IdentityDbContext<ProjectOneUser>
 {

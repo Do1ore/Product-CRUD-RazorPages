@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ProjectStore.Models;
 
-namespace ProjectStore.Pages
+namespace ProjectStore.Pages.Product
 {
     public class DetailsModel : PageModel
     {
@@ -14,7 +13,7 @@ namespace ProjectStore.Pages
             _context = context;
         }
 
-      public Product Product { get; set; } = default!; 
+      public Models.Product Product { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {

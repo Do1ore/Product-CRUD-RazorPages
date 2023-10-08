@@ -1,16 +1,16 @@
 ﻿@page
-@model ProjectStore.Pages.IndexModel
+@model ProjectStore.Pages.Product.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Список товаров</h1>
+<h1 class="mb-4 text-center">Список товаров</h1>
 
 <p>
-    <a asp-page="Create">Создать</a>
+    <a asp-page="Create" class="btn btn-success mb-3">Создать</a>
 </p>
-<table class="table">
+<table class="table table-striped table-hover table-bordered shadow">
     <thead>
         <tr>
             <th>
@@ -51,9 +51,9 @@
                     <img src="@item.Imagepath" style="height: 100px; width: 100px; object-fit: cover;">
                 </td>
                 <td>
-                    <a asp-page="./Edit" class="btn btn-info" asp-route-id="@item.Id">Изменить</a> |
-                    <a asp-page="./Details" class="btn btn-primary" asp-route-id="@item.Id">Детали</a> |
-                    <a asp-page="./Delete" class="btn btn-danger" asp-route-id="@item.Id">Удалить</a>
+                    <a asp-page="./Edit" class="btn btn-info" asp-route-id="@item.Id.ToString()">Изменить</a>
+                    <a asp-page="./Details" class="btn btn-primary" asp-route-id="@item.Id.ToString()">Детали</a>
+                    <a asp-page="./Delete" class="btn btn-danger" asp-route-id="@item.Id.ToString()">Удалить</a>
                 </td>
             </tr>
         }

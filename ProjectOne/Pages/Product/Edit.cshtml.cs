@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProjectStore.Models;
-using static Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal.ExternalLoginModel;
 
-namespace ProjectStore.Pages
+namespace ProjectStore.Pages.Product
 {
     public class EditModel : PageModel
     {
@@ -27,7 +19,7 @@ namespace ProjectStore.Pages
 
         public class InputModel
         {
-            public Product Product { get; set; } = default!;
+            public Models.Product Product { get; set; } = default!;
             public IFormFile? ImageFile { get; set; }
 
         }
