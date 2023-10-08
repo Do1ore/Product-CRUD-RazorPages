@@ -1,19 +1,20 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectStore.Areas.Identity.Data;
 using ProjectStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("AppConnectionString") ?? throw new InvalidOperationException("Connection string 'AppIdentityDbContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("AppConnectionString") ??
+                       throw new InvalidOperationException(
+                           "Connection string 'AppIdentityDbContextConnection' not found.");
 builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddIdentity<ProjectOneUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-        .AddEntityFrameworkStores<AppIdentityDbContext>()
-        .AddDefaultTokenProviders()
-        .AddDefaultUI();
+    .AddEntityFrameworkStores<AppIdentityDbContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
