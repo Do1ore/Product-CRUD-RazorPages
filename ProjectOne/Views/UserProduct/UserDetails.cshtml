@@ -8,16 +8,25 @@
 <div class="card mb-3" style="max-width: 100%;">
     <div class="row g-0">
         <div class="col-md-4 mycenter">
-            <img src="@Model.ImagePath" class="img-fluid" alt="@Model.Name" style="padding: 20px">
+            <img src="@Model.ImagePath" class="img-fluid rounded-3" alt="@Model.Name" style="padding: 20px">
 
         </div>
         <div class="col-md-8">
             <div class="card-body" style="padding: 40px">
                 <h1 class="card-title text-primary" style="padding-block-end: 20px">@Model.Name</h1>
                 <p class="card-text">@Model.Description</p>
-                <span class="fw-bold display-4" style="text-align: left">$@Model.Price.ToString()</span>
+                <div class="d-flex">
+                    <span class="fw-bold display-4 me-2" style="text-align: left">$@Model.Price.ToString()</span>
+                    <button form="toCartForm" type="submit" class="btn btn-primary">В корзину</button>
+                </div>
+
+                <form id="toCartForm" method="post" asp-controller="UserProduct" asp-action="AddToCart">
+
+                    <input type="hidden" name="id" value="@Model.Id.ToString()">
+                </form>
             </div>
         </div>
+
     </div>
 </div>
 <div>
