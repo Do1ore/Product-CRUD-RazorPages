@@ -21,6 +21,7 @@ namespace ProjectStore.Models
         [Display(Name = "Изображение")]
         [NotMapped]
         public IFormFile? ItemImage { get; set; }
-        public string? Imagepath { get; set; }
+        [Display(Name="Путь к файлу")]
+        public string? ImagePath { get; set; }
     }
 }

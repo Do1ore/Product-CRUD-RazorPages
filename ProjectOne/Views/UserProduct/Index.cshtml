@@ -1,13 +1,37 @@
-﻿@model IEnumerable<Product>
+﻿@using System.Globalization
+@model IEnumerable<Product>
 @{
     ViewData["Title"] = "ProductListForUser";
 }
 
 <div class="pb-5">
-    <h1>Товар</h1>
-    <span class="lead ">Абсолютное качесво и надежность, проверенное годами</span>
+    <h1>Все товары😍</h1>
+    <span class="lead ">Лучшее качество на рынке, проверенные поставщики</span>
 
 </div>
+<div class="container mb-5">
+
+    <h3 class="text-dark">Фильтр🫧</h3>
+    <form id="sort-form" asp-controller="UserProduct" asp-action="Index" method="get" class="form-inline my-2">
+        <input type="text" name="searchString" class="form-control mr-sm-2" placeholder="Название товара">
+
+    </form>
+    <div class="row d-flex justify-content-between">
+        <div class="col-6">
+            <input form="sort-form" type="submit" value="Искать" class="btn btn-success my-2 my-sm-0 me-2">
+            <a asp-controller="UserProduct" asp-action="Index" class="btn btn-outline-black my-2 my-sm-0">Сбросить</a>
+        </div>
+        <div class="col-6">
+            <div class="btn-group" role="group">
+                <a asp-controller="UserProduct" asp-action="Index" asp-route-sortOrder="name_desc" class="btn btn-outline-primary">По имени (desc)</a>
+                <a asp-controller="UserProduct" asp-action="Index" asp-route-sortOrder="price" class="btn btn-outline-primary">По цене (asc)</a>
+                <a asp-controller="UserProduct" asp-action="Index" asp-route-sortOrder="price_desc" class="btn btn-outline-primary">По цене (desc)</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-xl-2">
 
@@ -17,7 +41,7 @@
             <div class="card mb-lg-3 rounded-4 mb-4 shadow-sm bg-white" style="max-width: 100%; padding: 15px">
                 <div class="row">
                     <div class="col-md-6 mycenter">
-                        <img src="@item.Imagepath" style="padding: 20px;" class="img-fluid rounded-start rounded-3" alt="Image">
+                        <img src="@item.ImagePath" style="padding: 20px;" class="img-fluid rounded-start rounded-3" alt="Image">
                     </div>
 
                     <div class="col-md-6">
@@ -28,16 +52,16 @@
                                     <mark class="mark text-light bg-dark rounded-3 p-1 ">@item.Category</mark>
                                 </small>
                             </p>
-                            <p class="card-text">От @Math.Round((decimal)item.Price!, 0) $ </p>
+                            <p class="card-text">От @Math.Round((decimal)item.Price!, 0).ToString(CultureInfo.InvariantCulture) $ </p>
                             <div class="d-flex">
 
                                 <form method="post" class="me-2" asp-controller="UserProduct" asp-action="UserDetails">
-                                    <input type="hidden" name="id" value="@item.Id">
+                                    <input type="hidden" name="id" value="@item.Id.ToString()">
                                     <button type="submit" class="btn btn-primary">Детали</button>
                                 </form>
 
                                 <form method="post" asp-controller="UserProduct" asp-action="AddToCart">
-                                    <input type="hidden" name="id" value="@item.Id">
+                                    <input type="hidden" name="id" value="@item.Id.ToString()">
                                     <button type="submit" class="btn btn-secondary">В корзину</button>
                                 </form>
                             </div>

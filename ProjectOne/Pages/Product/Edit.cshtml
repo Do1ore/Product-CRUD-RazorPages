@@ -5,50 +5,64 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Изменить характеристики📐</h1>
 
-<h4>Product</h4>
-<hr />
+<h4>Товар</h4>
+<hr/>
 <div class="row">
-    <div class="col-md-4">
-        <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Input.Product.Id" />
-            <div class="form-group">
-                <label asp-for="Input.Product.Name" class="control-label"></label>
-                <input asp-for="Input.Product.Name" class="form-control" />
-                <span asp-validation-for="Input.Product.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Product.Price" class="control-label"></label>
-                <input asp-for="Input.Product.Price" class="form-control" />
-                <span asp-validation-for="Input.Product.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Product.Description" class="control-label"></label>
-                <input asp-for="Input.Product.Description" class="form-control" />
-                <span asp-validation-for="Input.Product.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Product.Category" class="control-label"></label>
-                <input asp-for="Input.Product.Category" class="form-control" />
-                <span asp-validation-for="Input.Product.Category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ImageFile" class="control-label"></label>
-                <input type="file" asp-for="Input.ImageFile" class="form-control" />
-                <span asp-validation-for="Input.ImageFile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+    <div class="row">
+
+        <div class="col-8">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Input.Product.Id"/>
+                <div class="form-group">
+                    <label asp-for="Input.Product.Name" class="control-label"></label>
+                    <input asp-for="Input.Product.Name" class="form-control"/>
+                    <span asp-validation-for="Input.Product.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Product.Price" class="control-label"></label>
+                    <input asp-for="Input.Product.Price" class="form-control"/>
+                    <span asp-validation-for="Input.Product.Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Product.Description" class="control-label"></label>
+                    <input asp-for="Input.Product.Description" class="form-control"/>
+                    <span asp-validation-for="Input.Product.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Product.Category" class="control-label"></label>
+                    <input asp-for="Input.Product.Category" class="form-control"/>
+                    <span asp-validation-for="Input.Product.Category" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Product.ImagePath" class="control-label"></label>
+                    <input type="text" asp-for="Input.Product.ImagePath" class="form-control"/>
+                    <span asp-validation-for="Input.Product.ImagePath" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Product.ItemImage" class="control-label"></label>
+                    <input type="file" asp-for="Input.Product.ItemImage" class="form-control"/>
+                    <span asp-validation-for="Input.Product.ItemImage" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <input type="submit" value="Сохранить" class="btn btn-primary"/>
+                </div>
+                <div>
+                    <a asp-page="./Index">К списку товаров</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-4">
+            <img src="@Model.Input.Product.ImagePath" class="img-fluid" alt="Фото продукта"/>
+        </div>
+
+
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{

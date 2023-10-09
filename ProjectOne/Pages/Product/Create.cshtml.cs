@@ -22,38 +22,37 @@ namespace ProjectStore.Pages.Product
             return Page();
         }
 
-        [BindProperty]
-        public InputModel? Input { get; set; }
+        [BindProperty] public InputModel Input { get; set; }
 
         public class InputModel
         {
             public Models.Product Product { get; set; } = default!;
-            [Required]
-            [Display(Name ="Изображение")]
-            public IFormFile? formFile { get; set; }
-
         }
 
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _context.Products == null || Input?.Product == null || Input?.Product == null)
+            if (!ModelState.IsValid || Input?.Product == null)
             {
                 return Page();
             }
-            var fileName = ("ProductImage" + DateTime.Now.ToShortDateString() + Input!.formFile!.FileName).Trim();
+
+            var fileName =
+                ("ProductImage" + DateTime.Now.ToShortDateString() + Input!.Product.ItemImage!.FileName).Trim();
             var relativePath = $@"\img\products\{fileName}";
             var fullPath = _webHostEnvironment.WebRootPath + relativePath;
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
             }
-            Input.Product.Imagepath = relativePath;
+
+            Input.Product.ImagePath = relativePath;
             await using (FileStream sw = new FileStream(fullPath, FileMode.Create))
             {
-                await Input.formFile.CopyToAsync(sw);
+                await Input.Product.ItemImage.CopyToAsync(sw);
             }
+
             _context.Products.Add(Input.Product);
             await _context.SaveChangesAsync();
 

@@ -8,47 +8,47 @@
 <h1>Создание</h1>
 
 <h4>Товар</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-12">
         <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Input.Product.Name" class="control-label"></label>
-                <input asp-for="Input.Product.Name" class="form-control" />
+                <label asp-for="Input!.Product.Name" class="control-label"></label>
+                <input asp-for="Input!.Product.Name" class="form-control"/>
                 <span asp-validation-for="Input.Product.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Product.Price" class="control-label"></label>
-                <input asp-for="Input.Product.Price" class="form-control" />
-                <span asp-validation-for="Input.Product.Price" class="text-danger"></span>
+                <label asp-for="Input!.Product.Price" class="control-label"></label>
+                <input asp-for="Input!.Product.Price" class="form-control"/>
+                <span asp-validation-for="Input!.Product.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Product.Description" class="control-label"></label>
-                <input asp-for="Input.Product.Description" class="form-control" />
+                <label asp-for="Input!.Product.Description" class="control-label"></label>
+                <input asp-for="Input!.Product.Description" class="form-control"/>
                 <span asp-validation-for="Input.Product.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Product.Category" class="control-label"></label>
-                <input asp-for="Input.Product.Category" class="form-control" />
-                <span asp-validation-for="Input.Product.Category" class="text-danger"></span>
+                <label asp-for="Input!.Product.Category" class="control-label"></label>
+                <input asp-for="Input!.Product.Category" class="form-control"/>
+                <span asp-validation-for="Input!.Product.Category" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.formFile" class="control-label"></label>
-                <input type="file" asp-for="Input.formFile" class="form-control" />
-                <span asp-validation-for="Input.formFile" class="text-danger"></span>
+                <label asp-for="Input!.Product.ItemImage" class="control-label"></label>
+                <input type="file" asp-for="Input!.Product.ItemImage" class="form-control"/>
+                <span asp-validation-for="Input!.Product.ItemImage" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Создать" class="btn btn-primary mt-3" />
+                <input type="submit" value="Создать" class="btn btn-primary mt-3"/>
             </div>
         </form>
     </div>
 </div>
 
 <div class="pt-3">
-    <a  asp-page="Index">Назад к списку</a>
+    <a asp-page="Index">Назад к списку</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

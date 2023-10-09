@@ -10,19 +10,39 @@ namespace ProjectStore.Controllers
     public class UserProductController : Controller
     {
         private readonly AppDbContext _db;
-        private readonly IHttpContextAccessor _contextAccessor;
 
-        public UserProductController(AppDbContext db, IHttpContextAccessor contextAccessor)
+        public UserProductController(AppDbContext db)
         {
             _db = db;
-            _contextAccessor = contextAccessor;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var products = await _db.Products.ToListAsync();
-            return View(products);
+            IQueryable<Product> products = _db.Products;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    products = products.OrderByDescending(s => s.Name);
+                    break;
+                case "price":
+                    products = products.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    products = products.OrderBy(s => s.Name);
+                    break;
+            }
+
+            return View(await products.AsNoTracking().ToListAsync());
         }
 
         [HttpPost]
@@ -34,24 +54,20 @@ namespace ProjectStore.Controllers
 
         public IActionResult Cart()
         {
-            // Получение текущего содержимого корзины
-            List<Product> cartItems = GetCartItems();
+            List<Product?>? cartItems = GetCartItems()!;
 
             return View(cartItems);
         }
 
         public IActionResult RemoveFromCart(Guid productId)
         {
-            // Получение текущего содержимого корзины
-            List<Product> cartItems = GetCartItems();
+            List<Product?>? cartItems = GetCartItems()!;
 
-            // Удаление товара из корзины по идентификатору
-            Product productToRemove = cartItems.FirstOrDefault(p => p.Id == productId);
+            Product? productToRemove = cartItems.FirstOrDefault(p => p.Id == productId);
             if (productToRemove != null)
             {
                 cartItems.Remove(productToRemove);
 
-                // Сохранение обновленного содержимого корзины
                 SaveCartItems(cartItems);
             }
 
@@ -61,46 +77,38 @@ namespace ProjectStore.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToCart(Guid id)
         {
-            // Получение текущего содержимого корзины из локального хранилища или файлов cookie
-            List<Product> cartItems = GetCartItems();
+            List<Product>? cartItems = GetCartItems();
             var product = await _db.Products.FindAsync(id);
 
-            if (cartItems.Contains(product))
+            if (product != null && cartItems != null && cartItems.Contains(product))
             {
                 return RedirectToAction(nameof(Index));
             }
-            // Добавление товара в корзину
-            cartItems.Add(product);
 
-            // Сохранение обновленного содержимого корзины в локальное хранилище или файлы cookie
-            SaveCartItems(cartItems);
+            cartItems?.Add(product ?? throw new InvalidOperationException("Product is null"));
+
+            SaveCartItems(cartItems!);
 
             return RedirectToAction("Cart");
         }
 
-        private List<Product> GetCartItems()
+        private List<Product>? GetCartItems()
         {
-            // Проверка, есть ли уже данные корзины в локальном хранилище или файлах cookie
-            if (HttpContext.Session.TryGetValue("CartItems", out byte[] cartItemsBytes))
+            if (HttpContext.Session.TryGetValue("CartItems", out byte[]? cartItemsBytes))
             {
-                // Если данные найдены, выполняется десериализация
                 string cartItemsJson = Encoding.UTF8.GetString(cartItemsBytes);
                 return JsonConvert.DeserializeObject<List<Product>>(cartItemsJson);
             }
 
-            // Если данные не найдены, возвращается пустой список
             return new List<Product>();
         }
 
-        private void SaveCartItems(List<Product> cartItems)
+        private void SaveCartItems(List<Product?>? cartItems)
         {
-            // Сериализация списка товаров в формат JSON
             string cartItemsJson = JsonConvert.SerializeObject(cartItems);
 
-            // Сохранение сериализованных данных в локальное хранилище или файлы cookie
             byte[] cartItemsBytes = Encoding.UTF8.GetBytes(cartItemsJson);
             HttpContext.Session.Set("CartItems", cartItemsBytes);
         }
-
     }
 }
