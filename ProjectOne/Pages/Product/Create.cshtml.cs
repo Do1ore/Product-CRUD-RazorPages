@@ -30,7 +30,6 @@ namespace ProjectStore.Pages.Product
         }
 
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid || Input?.Product == null)
@@ -38,10 +37,12 @@ namespace ProjectStore.Pages.Product
                 return Page();
             }
 
-            var fileName =
-                ("ProductImage" + DateTime.Now.ToShortDateString() + Input!.Product.ItemImage!.FileName).Trim();
+            var fileName = ("productImage" + Input!.Product.ItemImage!.FileName).Trim().Replace(' ', '_');
+
             var relativePath = $@"\img\products\{fileName}";
+
             var fullPath = _webHostEnvironment.WebRootPath + relativePath;
+
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
